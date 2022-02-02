@@ -68,8 +68,8 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT emp_no, first_name, last_name "
-                            + "FROM employees "
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name,  salaries.salary"
+                            + " FROM employees JOIN salaries USING (emp_no) "
                             + "WHERE emp_no = " + ID;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -78,9 +78,10 @@ public class App {
             if (rset.next())
             {
                 Employee emp = new Employee();
-                emp.emp_no = rset.getInt("emp_no");
-                emp.first_name = rset.getString("first_name");
-                emp.last_name = rset.getString("last_name");
+                emp.emp_no = rset.getInt("employees.emp_no");
+                emp.first_name = rset.getString("employees.first_name");
+                emp.last_name = rset.getString("employees.last_name");
+                emp.salary = rset.getInt("salaries.salary");
                 return emp;
             }
             else
