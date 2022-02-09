@@ -7,9 +7,6 @@ import java.util.ArrayList;
 public class App {
 
 
-
-
-
     /**
      * Connection to MySQL database.
      */
@@ -61,10 +58,8 @@ public class App {
         }
     }
 
-    public Employee getEmployee(int ID)
-    {
-        try
-        {
+    public Employee getEmployee(int ID) {
+        try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -72,48 +67,41 @@ public class App {
                     " SELECT emp_no, first_name, last_name "
                             + " FROM employees "
                             + " WHERE emp_no = " + ID;
-                            // Execute SQL statement
+            // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
-            {
+            if (rset.next()) {
                 Employee emp = new Employee();
                 emp.emp_no = rset.getInt("employees.emp_no");
                 emp.first_name = rset.getString("employees.first_name");
                 emp.last_name = rset.getString("employees.last_name");
                 emp.salary = rset.getInt("salaries.salary");
-               return emp;
-            }
-            else
+                return emp;
+            } else
                 return null;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get employee details");
             return null;
         }
     }
 
-    public void displayEmployee(Employee emp)
-    {
-        if (emp != null)
-        {
+    public void displayEmployee(Employee emp) {
+        if (emp != null) {
             System.out.println(
                     emp.emp_no + " "
                             + emp.first_name + " "
                             + emp.last_name + " "
                             + emp.title + " "
-                             + emp.salary + " "
-                            + emp.dept_name + " "
+                            + emp.salary + " "
+                            + emp.dept + " "
                             + emp.manager + "\n");
         }
     }
 
-    public ArrayList<Employee> getAllSalaries()
-    {
-        try
-        {
+    public ArrayList<Employee> getAllSalaries() {
+        try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -126,8 +114,7 @@ public class App {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract employee information
             ArrayList<Employee> employees = new ArrayList<Employee>();
-            while (rset.next())
-            {
+            while (rset.next()) {
                 Employee emp = new Employee();
                 emp.emp_no = rset.getInt("employees.emp_no");
                 emp.first_name = rset.getString("employees.first_name");
@@ -136,22 +123,18 @@ public class App {
                 employees.add(emp);
             }
             return employees;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get salary details");
             return null;
         }
     }
 
-    public static void printSalaries(ArrayList<Employee> employees)
-    {
+    public static void printSalaries(ArrayList<Employee> employees) {
         // Print header
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
         // Loop over all employees in the list
-        for (Employee emp : employees)
-        {
+        for (Employee emp : employees) {
             String emp_string =
                     String.format("%-10s %-15s %-20s %-8s",
                             emp.emp_no, emp.first_name, emp.last_name, emp.salary);
@@ -160,8 +143,7 @@ public class App {
     }
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Create new Application
         App a = new App();
 
@@ -179,6 +161,14 @@ public class App {
 
         // Disconnect from database
         a.disconnect();
+    }
+
+    public Department getDepartment(String dept_name) {
+        return null;
+    }
+
+    public ArrayList<Employee> getSalariesByDepartment(Department dept) {
+        return null;
     }
 
 }
