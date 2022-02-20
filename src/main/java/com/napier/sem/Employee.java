@@ -29,7 +29,7 @@ public class Employee {
     /**
      * Employee's current department
      */
-    public Department dept;
+    //public Department dept;
 
     /**
      * Employee's manager

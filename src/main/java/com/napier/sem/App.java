@@ -95,7 +95,6 @@ public class App {
                             + emp.last_name + " "
                             + emp.title + " "
                             + emp.salary + " "
-                            + emp.dept + " "
                             + emp.manager + "\n");
         }
     }
@@ -131,10 +130,19 @@ public class App {
     }
 
     public static void printSalaries(ArrayList<Employee> employees) {
+        // Check employees is not null
+        if (employees == null)
+        {
+            System.out.println("No employees");
+            return;
+        }
+
         // Print header
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
         // Loop over all employees in the list
         for (Employee emp : employees) {
+            if (emp == null)
+                continue;
             String emp_string =
                     String.format("%-10s %-15s %-20s %-8s",
                             emp.emp_no, emp.first_name, emp.last_name, emp.salary);
@@ -163,12 +171,12 @@ public class App {
         a.disconnect();
     }
 
-    public Department getDepartment(String dept_name) {
+   /* public Department getDepartment(String dept_name) {
         return null;
-    }
+    }*/
 
-    public ArrayList<Employee> getSalariesByDepartment(Department dept) {
+    /*public ArrayList<Employee> getSalariesByDepartment(Department dept) {
         return null;
-    }
+    }*/
 
 }
